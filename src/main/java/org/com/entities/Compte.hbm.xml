@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 30 janv. 2016 11:57:35 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.com.entities.Compte" table="compte" catalog="retrait">
+        <id name="codeCompte" type="java.lang.Integer">
+            <column name="codeCompte" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="utilisateur" class="org.com.entities.Utilisateur" fetch="select">
+            <column name="idutilisateur" not-null="true" />
+        </many-to-one>
+        <property name="solde" type="double">
+            <column name="solde" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="code" type="int">
+            <column name="code" not-null="true" />
+        </property>
+        <set name="transactions" table="transaction" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="codeCompte" not-null="true" />
+            </key>
+            <one-to-many class="org.com.entities.Transaction" />
+        </set>
+    </class>
+</hibernate-mapping>

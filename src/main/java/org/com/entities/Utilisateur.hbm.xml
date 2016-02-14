@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 30 janv. 2016 11:57:35 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.com.entities.Utilisateur" table="utilisateur" catalog="retrait">
+        <id name="idutilisateur" type="java.lang.Integer">
+            <column name="idutilisateur" />
+            <generator class="identity" />
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="100" not-null="true" />
+        </property>
+        <property name="prenom" type="string">
+            <column name="prenom" length="150" not-null="true" />
+        </property>
+        <property name="cin" type="string">
+            <column name="cin" length="100" not-null="true" />
+        </property>
+        <property name="adresse" type="string">
+            <column name="adresse" length="100" not-null="true" />
+        </property>
+        <property name="tel" type="int">
+            <column name="tel" not-null="true" />
+        </property>
+        <property name="role" type="string">
+            <column name="role" length="100" not-null="true" />
+        </property>
+        <set name="comptes" table="compte" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idutilisateur" not-null="true" />
+            </key>
+            <one-to-many class="org.com.entities.Compte" />
+        </set>
+        <set name="transactions" table="transaction" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idutilisateur" not-null="true" />
+            </key>
+            <one-to-many class="org.com.entities.Transaction" />
+        </set>
+    </class>
+</hibernate-mapping>
